@@ -3,30 +3,12 @@ import { makeAutoObservable } from 'mobx'
 
 export default class DeviceStore {
     constructor() {
-        this._types = [
-            { id: 1, name: 'Холодильники' },
-            { id: 2, name: 'Смартфоны' },
-            { id: 3, name: 'Стиральные машины' },
-            { id: 4, name: 'Чайники' }
+        this._types = []
 
-        ]
-
-        this._brands = [
-            { id: 1, name: 'Samsung' },
-            { id: 2, name: 'Apple' },
-            { id: 3, name: 'LG' },
-            { id: 4, name: 'Asus' },
-            { id: 5, name: 'Xerox' },
-            { id: 6, name: 'Xioami' },
-            { id: 7, name: 'Lenovo' }
-        ]
+        this._brands = []
 
         this._devices = [
-            { id: 1, name: 'Iphone 12 pro', price: 25000, rating: 5, img: 'https://media.wired.com/photos/6500ad57fe61eb702d721b58/master/w_2240,c_limit/Apple-iPhone-15-Pro-Hero-Gear.jpg' },
-            { id: 2, name: 'Iphone 12 pro', price: 25000, rating: 5, img: 'https://media.wired.com/photos/6500ad57fe61eb702d721b58/master/w_2240,c_limit/Apple-iPhone-15-Pro-Hero-Gear.jpg' },
-            { id: 3, name: 'Iphone 12 pro', price: 25000, rating: 5, img: 'https://media.wired.com/photos/6500ad57fe61eb702d721b58/master/w_2240,c_limit/Apple-iPhone-15-Pro-Hero-Gear.jpg' },
-            { id: 4, name: 'Iphone 12 pro', price: 25000, rating: 5, img: 'https://media.wired.com/photos/6500ad57fe61eb702d721b58/master/w_2240,c_limit/Apple-iPhone-15-Pro-Hero-Gear.jpg' },
-            { id: 5, name: 'Iphone 12 pro', price: 25000, rating: 5, img: 'https://media.wired.com/photos/6500ad57fe61eb702d721b58/master/w_2240,c_limit/Apple-iPhone-15-Pro-Hero-Gear.jpg' },
+
         ]
         this._selectedType = {}
         this._selectedBrand = {}
