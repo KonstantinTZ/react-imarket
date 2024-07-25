@@ -1,25 +1,41 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Form } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { NavLink, useLocation } from 'react-router-dom'
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts'
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
 import { login, registration } from '../http/userAPI';
+import { observer } from 'mobx-react-lite'
+import { Context } from '../index'
+import { useNavigate } from "react-router-dom"
 
-const Auth = (props) => {
+const Auth = observer((props) => {
+    const { user } = useContext(Context)
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
+    const [errorMsg, setErrorMsg] = useState('')
 
     const click = async () => {
-        if (isLogin) {
-            const response = await login()
-        } else {
+        try {
+            let data;
+            if (isLogin) {
+                data = await login(email, password)
 
-            const response = await registration(email, password)
-            console.log(response)
+            } else {
+                data = await registration(email, password)
+            }
+            user.setUser(user)
+            user.setIsAuth(true)
+            navigate(SHOP_ROUTE)
+        } catch (e) {
+            // alert(e.response.data.message)
+            setErrorMsg(e.response.data.message)
+
         }
+
     }
 
     return (
@@ -35,6 +51,7 @@ const Auth = (props) => {
                         placeholder="Введите ваш email..."
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                        onBlur={() => setErrorMsg('')}
                     />
                     <Form.Control
                         className="mt-3"
@@ -42,7 +59,9 @@ const Auth = (props) => {
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         type="password"
+                        onBlur={() => setErrorMsg('')}
                     />
+                    <div className="d-flex justify-content-between mt-3 pl-3 pr-3 text-danger">{errorMsg}</div>
                     <div className="d-flex justify-content-between mt-3 pl-3 pr-3">
 
                         {isLogin ?
@@ -67,5 +86,5 @@ const Auth = (props) => {
             </Card>
         </Container>
     )
-}
+})
 export default Auth;
