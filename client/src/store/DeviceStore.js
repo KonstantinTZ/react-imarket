@@ -12,6 +12,9 @@ export default class DeviceStore {
         ]
         this._selectedType = {}
         this._selectedBrand = {}
+        this._page = 1
+        this._totalCount = 0 // общее количество товаров доступных по запросу
+        this._limit = 3 // кол-во товаров на одной странице
 
         makeAutoObservable(this)
 
@@ -52,9 +55,11 @@ export default class DeviceStore {
         return this._devices
     }
     get selectedType() {
+        this.setPage(1)
         return this._selectedType
     }
     get selectedBrand() {
+        this.setPage(1)
         return this._selectedBrand
     }
     get totalCount() {

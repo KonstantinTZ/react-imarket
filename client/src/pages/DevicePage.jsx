@@ -15,7 +15,7 @@ const DevicePage = (props) => {
         <Container className='pt-4'>
             <Row>
                 <Col md={4}>
-                    <Image width={300} height={300} src={ProcessingInstruction.env.REACT_APP_API_URL + device.img} />
+                    <Image width={300} height={300} src={process.env.REACT_APP_API_URL + device.img} />
                 </Col>
                 <Col md={4}>
                     <Row className='d-flex flex-column align-items-center justify-content-center'>
